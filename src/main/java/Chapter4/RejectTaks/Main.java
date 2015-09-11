@@ -1,5 +1,8 @@
 package Chapter4.RejectTaks;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -8,26 +11,28 @@ import java.util.concurrent.ThreadPoolExecutor;
  */
 public class Main {
 
+    static final Logger logger = LoggerFactory.getLogger(Main.class);
+
     public static void main(String[] args){
 
         RejectedTaskController controller = new RejectedTaskController();
         ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
         executor.setRejectedExecutionHandler(controller);
 
-        System.out.printf("Main:Starting.\n");
+        logger.info("Main:Starting.");
         for(int i=0;i<3;i++){
             Task task = new Task("Task"+i);
             executor.submit(task);
         }
 
-        System.out.printf("Main: Shutting down the Executor.\n");
+        logger.info("Main: Shutting down the Executor.");
         executor.shutdown();
 
-        System.out.printf("Main: Sending another task.\n");
+        logger.info("Main: Sending another task.");
         Task task = new Task("RejectedTask");
         executor.submit(task);
 
-        System.out.printf("Main: End.\n");
+        logger.info("Main: End.");
 
 
     }

@@ -1,5 +1,8 @@
 package Chapter4.RejectTaks;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -8,11 +11,13 @@ import java.util.concurrent.ThreadPoolExecutor;
  */
 public class RejectedTaskController implements RejectedExecutionHandler{
 
+    static final Logger logger = LoggerFactory.getLogger(RejectedTaskController.class);
+
     @Override
     public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
-        System.out.printf("RejectTaskController: The task %s has been rejected\n",r.toString());
-        System.out.printf("RejectedTaskController: Terminating:%s\n",executor.isTerminating());
-        System.out.printf("RejectedTaskController: Terminated: %s\n",executor.isTerminated());
+        logger.info("RejectTaskController: The task {} has been rejected",r.toString());
+        logger.info("RejectedTaskController: Terminating:{}", executor.isTerminating());
+        logger.info("RejectedTaskController: Terminated: {}", executor.isTerminated());
 
     }
 }

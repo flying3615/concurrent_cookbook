@@ -1,5 +1,8 @@
 package Chapter4.RejectTaks;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -7,6 +10,8 @@ import java.util.concurrent.TimeUnit;
  */
 public class Task implements Runnable {
 
+    static final Logger logger = LoggerFactory.getLogger(Task.class);
+    
     private String name;
 
     public Task(String name){
@@ -15,15 +20,15 @@ public class Task implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("Task "+name+": Starting");
+        logger.info("Task "+name+": Starting");
         long duration = (long)(Math.random()*10);
-        System.out.printf("Task %s: ReportGnerator: Generating a report during %d seconds\n",name,duration);
+        logger.info("Task {}: ReportGenerator: Generating a report during {} seconds", name, duration);
         try {
             TimeUnit.SECONDS.sleep(duration);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.printf("Task %s: Ending\n",name);
+        logger.info("Task {}: Ending", name);
     }
 
     public String toString(){
