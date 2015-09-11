@@ -1,4 +1,4 @@
-package Chapter4.SeperateTask;
+package Chapter4.SeperateLauchAndProcessTask;
 
 import java.util.concurrent.CompletionService;
 import java.util.concurrent.ExecutionException;
