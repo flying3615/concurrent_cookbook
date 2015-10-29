@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by centling on 2015/10/29.
@@ -78,7 +79,11 @@ public class CompareTask extends RecursiveTask<List<Person>> {
         List<Person> result = fjPool.invoke(new CompareTask(0, orgPerson.size(), orgPerson, changePerson));
         long end = System.currentTimeMillis();
         System.out.println("result1 "+(end-start)+" "+result.size());
-
+        try {
+            fjPool.awaitTermination(1, TimeUnit.DAYS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         start = System.currentTimeMillis();
         List<Person> tmpList = new ArrayList<>();
