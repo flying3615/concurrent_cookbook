@@ -15,6 +15,11 @@ public class Person {
 
     @Override
     public boolean equals(Object o) {
+        try {
+            Thread.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
